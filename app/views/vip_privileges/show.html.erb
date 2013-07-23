@@ -1,0 +1,31 @@
+<%- model_class = VipPrivilege -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:vip_card_id) %>:</strong></dt>
+  <dd><%= @vip_privilege.vip_card_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @vip_privilege.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
+  <dd><%= @vip_privilege.content %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:limit_count) %>:</strong></dt>
+  <dd><%= @vip_privilege.limit_count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:day_limit_count) %>:</strong></dt>
+  <dd><%= @vip_privilege.day_limit_count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_date) %>:</strong></dt>
+  <dd><%= @vip_privilege.start_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:end_date) %>:</strong></dt>
+  <dd><%= @vip_privilege.end_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd>
+	  <% if @vip_privilege.start_date > Time.now.to_date %><%= '未开放' %><% end %>
+	  <% if @vip_privilege.start_date <= Time.now.to_date and @vip_privilege.end_date >= Time.now.to_date %><%= '进行中' %><% end %>
+  </dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              vip_privileges_path, :class => 'btn'  %>
+</div>

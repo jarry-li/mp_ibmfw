@@ -1,0 +1,49 @@
+<%= form_for @vip_privilege, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :vip_card_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :vip_card_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :content, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :content, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :limit_count, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :limit_count, :class => 'text_field' %>
+    </div>
+  </div><div class="control-group">
+    <%= f.label :day_limit_count, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :day_limit_count, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :start_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :start_date, :class => 'datepicker' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :end_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :end_date, :class => 'datepicker' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                vip_privileges_path, :class => 'btn' %>
+  </div>
+<% end %>

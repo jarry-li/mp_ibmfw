@@ -1,0 +1,56 @@
+<% content_for :sidebar_menu do %>
+  <li><%= link_to '公共账号管理', root_path, class: current_page?(root_path) ? 'active' : '' %></li>
+  <li><%= link_to '我的推广活动', activities_path, class: current_page?(activities_path) ? 'active' : '' %></li>
+<% end %>
+
+<%= render 'sidebar' %>
+
+<div class="right-col fl">
+  <div class="body-cotent-box">
+    <span class="box-bar top-bar"></span>
+    <div class="content">
+      <table cellpadding="0" cellspacing="0" border="0" class="table" width="100%">
+        <tr>
+          <th class="first-col">公共账号</th>
+          <th>token</th>
+          <th>url</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+        <% @wx_mp_users.each do |wx_mp_user| %>
+        <tr>
+          <td><%= wx_mp_user.name %></td>
+          <td><%= wx_mp_user.token %></td>
+          <td><%= wx_mp_user.url %></td>
+          <td><%= wx_mp_user.status_name %></td>
+          <td>
+            <%= link_to '设置欢迎语', edit_wx_mp_user_path(wx_mp_user) %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+      <div class="table-action"><%= link_to '新增', 'javascript:void(0);', class: 'button sprits inline-block button-add' %></div>
+    </div>
+    <span class="box-bar btm-bar"></span>
+  </div>
+</div>
+
+<div class="mask hide"></div>
+<div class="popup popup-step1 hide">
+  <%= form_for current_user.wx_mp_users.new, validate: true do |f| %>
+  <a href="javascript:void(0);" class="icon icon_close">关闭</a>
+  <div class="sprits popup-step-progress"></div>
+  <div class="popup-account-name">
+    <div class="row clearfix">
+      <label class="horizon-label"><strong>公共账号名称：</strong></label>
+      <div class="form-field">
+        <div class="input-box input-325 sprits inline-block">
+          <%= f.text_field :name, class: 'txt-input' %>
+        </div>
+      </div>
+    </div>
+    <p class="form-tip">请输入微信公众号的名称，如 达因广告传媒</p>
+  </div>
+  <div class="form-action"><input type="image" src="/assets/btn_next_stop.png" class="form-submit" /></div>
+  <% end %>
+</div>

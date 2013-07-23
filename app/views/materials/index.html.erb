@@ -1,0 +1,51 @@
+<% content_for :sidebar_menu do %>
+  <li><%= link_to '单图文消息', materials_path, class: controller_name == 'materials' ? "active" : '' %></li>
+  <li><%= link_to '多图文消息', materials_path, class: controller_name == 'materials1' ? "active" : '' %></li>
+<% end %>
+
+<%= render 'sidebar' %>
+
+<div class="right-col fl">
+  <div class="body-cotent-box">
+    <span class="box-bar top-bar"></span>
+
+    <div class="content content-narrow clearfix">
+      <div class="clearfix">
+        <h2 class="headline-2-no-decoration fl">图文消息列表（共<%= @materials.count %>个）</h2>
+        <div class="pagination fr">
+          <ul>
+            <li class="disabled first-child"><a>上一页</a></li>
+            <li><span class="pagination_inner">1/1</span></li>
+            <li><a href="/activities?page=2" rel="next">下一页</a></li>
+            <li><span class="pagination_inner"><input type="text" class="stardard-input txt-pagination" /></span></li>
+            <li><a href="/activities?page=2" class="page-redirect">跳转</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dashboard-message clearfix">
+        <div class="dashboard-col fl">
+          <%= link_to '单图文添加', new_material_path, class: 'sprits button dashboard-compose-button' %>
+        </div>
+
+        <% @materials.each_with_index do |material, index| %>
+        <div class="dashboard-col <%= index % 2 == 0 ? 'fr' : 'fl' %>">
+          <ul class="dashboard-stream">
+            <li>
+              <div class="dashboard-view">
+                <h4><%= material.title %></h4>
+                <p class="dashboard-time"><%= material.created_at.to_date %></p>
+                <%= image_tag material.pic, size: '320x160' %>
+                <div class="dashboard-copy"><p><%= material.content %></p></div>
+              </div>
+              <div class="dashboard-edit clearfix"><%= link_to '编辑', [:edit, material], class: 'button sprits inline-block button-dashboard-edit' %><%= link_to '删除', '#', data: { id: material.id, url: material_url(material.id),  confirm: '确定要删除图文吗？' }, class: 'button sprits inline-block button-dashboard-delete delete' %></div>
+            </li>
+          </ul>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+    <span class="box-bar btm-bar"></span>
+  </div>
+</div>
