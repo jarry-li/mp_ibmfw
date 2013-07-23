@@ -1,0 +1,2 @@
+module WxUsersHelper
+end

@@ -1,0 +1,34 @@
+<%= form_for @answer, validate: true, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.hidden_field :question_id %>
+  <div class="control-group">
+    <%= f.label :question_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :question_ask, @answer.question.try(:ask), disabled: true %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :answer_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :answer_type, current_user.answers.answer_type_options %>
+    </div>
+  </div>
+  <div class="control-group <%= @answer.text? ? '' : 'hide' %>">
+    <%= f.label :content, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :content, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group <%= @answer.image_text? ? '' : 'hide' %>">
+    <%= f.label :material_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :material_id, current_user.materials.map{|m| [m.title, m.id] } %>
+    </div>
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to '返回回复列表', [@answer.question, :answers], :class => 'btn' %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<%= form_for(@wx_relationship) do |f| %>
+  <% if @wx_relationship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wx_relationship.errors.count, "error") %> prohibited this wx_relationship from being saved:</h2>
+
+      <ul>
+      <% @wx_relationship.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

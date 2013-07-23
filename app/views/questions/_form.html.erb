@@ -1,0 +1,26 @@
+<%= form_for @question, validate: true, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :ask, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ask, :class => 'text_field' %>
+    </div>
+  </div> 
+  <div class="control-group">
+    <%= f.label :wx_mp_user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :wx_mp_user_id, WxMpUser.all.map{|wx_mp_user|[wx_mp_user.name,wx_mp_user.id]} %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :match_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :match_type, Question.match_type_options, :class => 'select' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                questions_path, :class => 'btn' %>
+  </div>
+<% end %>

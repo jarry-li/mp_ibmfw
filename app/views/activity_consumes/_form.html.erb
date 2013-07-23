@@ -1,0 +1,33 @@
+<%= form_for @activity_consume, validate: true, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <div class="control-group">
+    <%= f.label :vip_privilege_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :vip_privilege_id, VipPrivilege.all.map{|vip_privilege|[vip_privilege.title, vip_privilege.id]} %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :code, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :code, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :status, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :status, ActivityConsume.status_options %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :use_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :use_at, :class => 'datepicker' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                activity_consumes_path, :class => 'btn' %>
+  </div>
+<% end %>
