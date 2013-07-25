@@ -1,7 +1,18 @@
+<% content_for :sidebar_menu do %>
+  <li><%= link_to '单一回复客服设置', questions_path, class: controller_name == 'questions1' ? "active" : '' %></li>
+  <li><%= link_to '自定义回复库', questions_path, class: controller_name == 'questions' ? "active" : '' %></li>
+<% end %>
+
+<%= render 'sidebar' %>
+
+<div class="right-col fl">
+  <div class="body-cotent-box">
+    <span class="box-bar top-bar"></span>
+	
+    <div class="content content-narrow clearfix">
+	  <div class="clearfix">
+        <h4>自定义关键词</h4> 
 <%- model_class = Question -%>
-<div class="page-header">
-  <h3>自定义查询</h3>
-</div>
 
 <%= search_form_for @q do |f| %>
   <%= f.label '关键词:' %>
@@ -51,3 +62,8 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_question_path,
             :class => 'btn btn-primary' %>
+	  </div>
+	</div>
+	<span class="box-bar btm-bar"></span>
+  </div>
+</div>

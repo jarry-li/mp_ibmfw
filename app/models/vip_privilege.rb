@@ -1,5 +1,5 @@
 class VipPrivilege < ActiveRecord::Base
-  
+  validates :title, :content, :limit_count, :day_limit_count, :start_date, :end_date, presence: true
   belongs_to :vip_card
   has_many :activity_consumes
   

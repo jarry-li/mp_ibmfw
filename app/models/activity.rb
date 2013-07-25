@@ -18,7 +18,7 @@ class Activity < ActiveRecord::Base
       { activity_type_id: 5 , title: "活动开始，请进入页面开始抽奖", pic: "/public/uploads/activity_pics/default/dzp.jpg", description: "请点击进入幸运大转盘活动页面", activity_status: 1 },
       { activity_type_id: 5 , title: "活动即将开始", pic: "dzpks.jpg", description: "活动说明", activity_status: 0 }
     ]
-    
+
   validates :name, :keyword, presence: true, uniqueness: { case_sensitive: false }
   validates :wx_mp_user_id, :activity_type, :ready_at, :start_at, :end_at, presence: true
 
@@ -26,15 +26,22 @@ class Activity < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :activity_type
   has_one :activity_property, dependent: :destroy
+  has_one :website, dependent: :destroy
+  has_one :vip_card, dependent: :destroy
   has_many :activity_notices, dependent: :destroy
   has_many :activity_properties, dependent: :destroy
   has_many :activity_consumes,dependent: :destroy
   has_many :activity_prizes, dependent: :destroy
   has_many :vip_cards
-  
+
+  after_create :create_default_properties!
+  after_update :setted!
+
   accepts_nested_attributes_for :activity_property
   accepts_nested_attributes_for :activity_notices
   accepts_nested_attributes_for :activity_prizes
+  accepts_nested_attributes_for :website
+  accepts_nested_attributes_for :vip_card
 
   enum_attr :status, :in => [
     ['deleted', -2, '已删除'],
@@ -44,29 +51,33 @@ class Activity < ActiveRecord::Base
   ]
 
   def activity_status
-  	now = Time.now
-  	if now < ready_at
-  		NOT_START
-  	elsif now >= ready_at and now < start_at
-  		WARM_UP
-  	elsif now >= start_at and now < end_at
-  		UNDER_WAY
-  	else
-  		HAS_ENDED
-  	end
+    now = Time.now
+    if now < ready_at
+      NOT_START
+    elsif now >= ready_at and now < start_at
+      WARM_UP
+    elsif now >= start_at and now < end_at
+      UNDER_WAY
+    else
+      HAS_ENDED
+    end
   end
 
   def activity_status_name
-  	now = Time.now
-  	if now < ready_at
-  		NOT_START_NAME
-  	elsif now >= ready_at and now < start_at
-  		WARM_UP_NAME
-  	elsif now >= start_at and now < end_at
-  		UNDER_WAY_NAME
-  	else
-  		HAS_ENDED_NAME
-  	end
+    now = Time.now
+    if now < ready_at
+      NOT_START_NAME
+    elsif now >= ready_at and now < start_at
+      WARM_UP_NAME
+    elsif now >= start_at and now < end_at
+      UNDER_WAY_NAME
+    else
+      HAS_ENDED_NAME
+    end
+  end
+
+  def setted!
+    update_attributes(status: SETTED)
   end
 
   def stop!
@@ -78,18 +89,26 @@ class Activity < ActiveRecord::Base
   end
 
   def create_default_properties!
-  	
-  	activity_property = ActivityProperty.first_or_create(activity_id: id, activity_type_id: activity_type.id)
-  	DEFAULT_NOTICES.each do |attrs|
-  	  if attrs[activity_type_id] == activity_type.id
-  	  	activity_notice = ActivityNotice.where(activity_id: id, activity_status: attrs[:activity_status]).first_or_create(wx_mp_user_id: wx_mp_user_id, activity_id: id, title: attrs[:title],pic: attrs[:pic],description: attrs[:description],activity_status: attrs[:activity_status])
+    if activity_type.id != 1 and activity_type.id != 2
+      ActivityProperty.where(activity_id: id).first_or_create(activity_id: id, activity_type_id: activity_type.id)
+    elsif activity_type.id != 1
+      Website.where(activity_id: id).first_or_create(supplier_id: supplier.id, wx_mp_user_id: wx_mp_user.id, activity_id: id, name: wx_mp_user.name, template_id: 1, home_cover_pic: "/public/uploads/activity_pics/default/site.png")
+    elsif activity_type.id != 2
+      VipCard.where(activity_id: id).first_or_create(supplier_id: supplier.id, wx_mp_user_id: wx_mp_user.id, activity_id: id, name: "会员卡", background_pic: "/public/uploads/activity_pics/default/vip_background.png", logo: "/public/uploads/activity_pics/default/vip_logo.png", cover_pic: "/public/uploads/activity_pics/default/vip.png", limit_privilege_count: 8)
+    end
 
-  		logger.info  "created activity_notice: #{activity_notice.id} - #{activity_notice.activity_type_id} - #{activity_notice.title}"
- 	  end
-  	end
-    ['一等奖','二等奖','三等奖'].each do |title|
-      activity_notice = ActivityPrize.where(activity_id: id, title: title).first_or_create(activity_id: id, title: title)
-	end
+    DEFAULT_NOTICES.each do |attrs|
+      if attrs[:activity_type_id] == activity_type.id
+        activity_notice = ActivityNotice.where(activity_id: id, activity_status: attrs[:activity_status]).first_or_create(wx_mp_user_id: wx_mp_user_id, activity_id: id, title: attrs[:title],pic: attrs[:pic],description: attrs[:description],activity_status: attrs[:activity_status])
+
+      logger.info  "created activity_notice: #{activity_notice.id} - #{activity_notice.title}"
+      end
+    end
+    if activity_type.id == 4 or activity_type.id == 5
+      ['一等奖','二等奖','三等奖'].each do |title|
+        activity_notice = ActivityPrize.where(activity_id: id, title: title).first_or_create(activity_id: id, title: title)
+      end
+    end
   end
- 
+
 end

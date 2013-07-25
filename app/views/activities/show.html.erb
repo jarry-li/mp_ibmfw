@@ -35,7 +35,7 @@
   <dt><strong><%= model_class.human_attribute_name(:activity_id) %>:</strong></dt>
   <dd><%= @activity.activity_property.activity.id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:activity_type_id) %>:</strong></dt>
-  <dd><%= @activity.activity_property.activity_type_name %></dd>
+  <dd><%= @activity.activity_property.activity_type.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:prize_pic) %>:</strong></dt>
   <dd><%= @activity.activity_property.prize_pic if @activity.activity_property.ggl? or @activity.activity_property.dzp? %></dd>
   <dt><strong><%= model_class.human_attribute_name(:partake_limit) %>:</strong></dt>

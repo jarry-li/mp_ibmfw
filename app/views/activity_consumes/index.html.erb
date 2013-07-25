@@ -1,7 +1,20 @@
-<%- model_class = ActivityConsume -%>
-<div class="page-header">
-  <h3>特权消费管理</h3>
-</div>
+<% content_for :sidebar_menu do %>
+  <li><%= link_to '会员管理', vip_users_path, class: controller_name == 'vip_users' ? "active" : '' %></li>
+  <li><%= link_to '消费管理', activity_consumes_path, class: controller_name == 'activity_consumes' ? "active" : '' %></li>
+  <li><%= link_to '特权管理', vip_privileges_path, class: controller_name == 'vip_privileges' ? "active" : '' %></li>
+<% end %>
+
+<%= render 'sidebar' %>
+
+<div class="right-col fl">
+  <div class="body-cotent-box">
+    <span class="box-bar top-bar"></span>
+	
+    <div class="content content-narrow clearfix">
+	  <div class="clearfix">
+	  <h4>特权消费管理</h4>
+
+<%- model_class = ActivityConsume -%> 
 
 <%= search_form_for @q do |f| %>
   <%= f.label '活动码:' %>
@@ -53,3 +66,8 @@
 <%#= link_to t('.new', :default => t("helpers.links.new")),
             new_activity_consume_path,
             :class => 'btn btn-primary' %>
+	  </div>
+	</div>
+	<span class="box-bar btm-bar"></span>
+  </div>
+</div>

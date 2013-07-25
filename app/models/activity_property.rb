@@ -3,7 +3,7 @@ class ActivityProperty < ActiveRecord::Base
   belongs_to :activity
   belongs_to :activity_type
 
-  enum_attr :activity, :in => [
+  enum_attr :activity_type, :in => [
     ['site', 1, '微官网'],
     ['vip', 2, '微会员卡'],
     ['yhq', 3, '优惠券'],

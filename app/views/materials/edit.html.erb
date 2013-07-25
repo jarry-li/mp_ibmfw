@@ -39,7 +39,7 @@
 
           <div class="row narrow-row clearfix">
             <label class="landscape-label">正文*(必填,不能超过20000个字)</label>
-            <div class="compose-editor-menu"><img src="/assets/compose_editor_placeholder.png" /></div>
+            <div class="compose-editor-menu"><%= image_tag 'compose_editor_placeholder.png' %></div>
             <div><%= f.text_area :content, class: 'input-compose-browser' %></div>
           </div>
 
@@ -53,7 +53,7 @@
         <span class="box-bar btm-bar"></span>
         <i class="icon icon_arrow"></i>
       </div>
-      <div class="compose-action"><input type="image" src="/assets/button_preview.png" /><input type="image" src="/assets/button_done.png" /></div>
+      <div class="compose-action"><%= image_submit_tag("button_preview.png") %><%= image_tag 'button_done.png' %></div>
     </div>
 <% end %>
   </div>

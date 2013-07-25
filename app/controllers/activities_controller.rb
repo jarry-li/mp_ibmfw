@@ -32,9 +32,8 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
-       @activity.set_default_properties!
-       format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @activity }
+        format.html { redirect_to  edit_activity_path(@activity), notice: 'Activity was successfully created.' }
+        format.json { render action: 'edit', status: :created, location: @activity }
       else
         format.html { render action: 'new' }
         format.json { render json: @activity.errors, status: :unprocessable_entity }

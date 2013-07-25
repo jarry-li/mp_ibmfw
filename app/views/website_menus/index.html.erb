@@ -1,25 +1,44 @@
-<h1>Listing website_menus</h1>
+<% content_for :sidebar_menu do %>
+  <li><%= link_to '我的微官网', websites_path, class: ['websites', 'website_menus'].include?(controller_name) ? "active" : '' %></li>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<%= render 'sidebar' %>
 
-  <tbody>
-    <% @website_menus.each do |website_menu| %>
-      <tr>
-        <td><%= link_to 'Show', website_menu %></td>
-        <td><%= link_to 'Edit', edit_website_menu_path(website_menu) %></td>
-        <td><%= link_to 'Destroy', website_menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="right-col fl">
+  <div class="body-cotent-box">
+    <span class="box-bar top-bar"></span>
+    <div class="content clearfix">
+      <h2>微官网菜单设置</h2>
+      <%= image_tag 'pic_my_profile.jpg', class: 'fl' %>
+      <div class="content-profile fl">
+        <div>
+          <a href="#"></a><%= image_tag 'button_add_menu.png' %>&nbsp;
+          <a href="/websites"><%= image_tag 'button_return_update.png' %></a>&nbsp;
+          <a href="#"><%= image_tag 'button_clear_data.png' %></a>
+        </div>
 
-<br>
-
-<%= link_to 'New Website menu', new_website_menu_path %>
+        <ul class="global-menu-setting">
+          <li>
+            <div class="clearfix"><a href="#" class="root-menu"><i class="icon icon_expand_arrow inline-block icon-root-menu"></i><i class="icon icon_folder inline-block"></i>上海炅然文化传播有限公司</a><span class="fr"><i class="icon icon_add_menu inline-block"></i><i class="icon icon_edit_menu inline-block"></i><i class="icon icon_delete_menu inline-block"></i></span></div>
+            <ul class="global-menu-item">
+              <li class="clearfix"><a href="#"><i class="icon icon_sub_menu inline-block"></i>关于炅然</a><span class="fr"><i class="icon icon_add_menu inline-block"></i><i class="icon icon_edit_menu inline-block"></i><i class="icon icon_delete_menu inline-block"></i></span></li>
+              <li>
+                <div class="clearfix"><a href="#"><i class="icon icon_sub_menu inline-block"></i>关于炅然</a><span class="fr"><i class="icon icon_add_menu inline-block"></i><i class="icon icon_edit_menu inline-block"></i><i class="icon icon_delete_menu inline-block"></i></span></div>
+                <ul>
+                  <li class="root-sub-menu-item">
+                    <div class="clearfix"><a href="#" class="root-menu"><i class="icon icon_expand_arrow inline-block icon-root-menu"></i><i class="icon icon_folder inline-block"></i>上海炅然文化传播有限公司</a><span class="fr"><i class="icon icon_add_menu inline-block"></i><i class="icon icon_edit_menu inline-block"></i><i class="icon icon_delete_menu inline-block"></i></span></div>
+                    <ul class="global-menu-item">
+                      <li class="clearfix"><a href="#"><i class="icon icon_sub_menu inline-block"></i>关于炅然</a><span class="fr"><i class="icon icon_add_menu inline-block"></i><i class="icon icon_edit_menu inline-block"></i><i class="icon icon_delete_menu inline-block"></i></span></li>
+                      <li class="clearfix"><a href="#"><i class="icon icon_sub_menu inline-block"></i>关于炅然</a><span class="fr"><i class="icon icon_add_menu inline-block"></i><i class="icon icon_edit_menu inline-block"></i><i class="icon icon_delete_menu inline-block"></i></span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <span class="box-bar btm-bar"></span>
+  </div>
+</div>

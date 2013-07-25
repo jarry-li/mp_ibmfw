@@ -14,7 +14,7 @@ class WxMpUser < ActiveRecord::Base
   ]
 
   before_create { generate_token(:token) }
-  after_create :generate_url
+  after_create :generate_url, :create_default_activities
 
   private
 
@@ -26,5 +26,32 @@ class WxMpUser < ActiveRecord::Base
 
   def generate_url
     update_attributes(url: "http://www.uzhe.com/api/service?id=#{id}")
+  end
+
+  def create_default_activities
+    now = Time.now
+    attrs = [
+      {
+        supplier_id: supplier_id,
+        wx_mp_user_id: id,
+        activity_type_id: 1,
+        name: "我的微官网",
+        keyword: "微官网",
+        ready_at: now,
+        start_at: now,
+        end_at: now+100.years
+      },
+      {
+        supplier_id: supplier_id,
+        wx_mp_user_id: id,
+        activity_type_id: 2,
+        name: "我的微会员卡",
+        keyword: "会员卡",
+        ready_at: now,
+        start_at: now,
+        end_at: now+100.years
+      }
+    ]
+    Activity.create(attrs)
   end
 end

@@ -4,24 +4,13 @@ namespace :dev do
 
   desc 'build suppliers ...'
   task build: [
-    :create_suppliers,
     :create_activity_types,
     :create_supplier_categories,
+    :create_suppliers,
     :create_vip_users,
     :create_activity_consumes,
     #:create_activity_notices,
   ]
-
-  desc 'created suppliers'
-  task :create_suppliers => :environment do
-    puts 'Starting create suppliers ******'
-    if Supplier.count == 0
-      supplier = Supplier.where(name: 'uzhe').first_or_create(nickname: 'uzhe', password: 111111, password_confirmation: 111111)
-      wx_mp_user = supplier.wx_mp_users.where(name: 'uzhe').first_or_create
-      puts "created supplier: #{supplier.name}) wx_mp_user #{wx_mp_user.name}"
-    end
-    puts 'Done!'
-  end
 
   desc 'created activity_types'
   task :create_activity_types => :environment do
@@ -38,6 +27,7 @@ namespace :dev do
     end
     puts 'Done!'
   end
+
 
   desc 'created supplier_categories'
   task :create_supplier_categories => :environment do
@@ -64,6 +54,19 @@ namespace :dev do
     puts 'Done!'
   end
 
+  desc 'created suppliers'
+  task :create_suppliers => :environment do
+    puts 'Starting create suppliers ******'
+    if Supplier.count == 0
+      supplier = Supplier.where(name: 'uzhe').first_or_create(nickname: 'uzhe', password: 111111, password_confirmation: 111111)
+
+      wx_mp_user = supplier.wx_mp_users.where(name: 'uzhe').first_or_create
+
+      puts "created supplier: #{supplier.name}) wx_mp_user #{wx_mp_user.name}"
+    end
+    puts 'Done!'
+  end
+
   desc 'created vip_users'
   task :create_vip_users => :environment do
     puts 'Starting create vip_users ******'
@@ -79,7 +82,7 @@ namespace :dev do
     end
     puts 'Done!'
   end
-  
+
   desc 'created activity_consumes'
   task :create_activity_consumes => :environment do
     puts 'Starting create activity_consumes ******'
@@ -87,7 +90,7 @@ namespace :dev do
       { wx_mp_user_id: 1, activity_id: 5, wx_user_id: 3, code: 12345, status: 1 },
       { wx_mp_user_id: 1, activity_id: 5, wx_user_id: 3, code: 12323, status: 1 },
       { wx_mp_user_id: 1, activity_id: 5, wx_user_id: 3, code: 12342, status: 1 },
-      { wx_mp_user_id: 1, activity_id: 5, wx_user_id: 3, code: 12312, status: 1 }, 
+      { wx_mp_user_id: 1, activity_id: 5, wx_user_id: 3, code: 12312, status: 1 },
     ].each do |attrs|
       activity_consume = ActivityConsume.where(code: attrs[:code]).first_or_create(code: attrs[:code], status: attrs[:status],wx_mp_user_id: attrs[:wx_mp_user_id],activity_id: attrs[:activity_id],wx_user_id: attrs[:wx_user_id])
       puts "created activity_consume: #{activity_consume.id} - #{activity_consume.code}"

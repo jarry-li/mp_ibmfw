@@ -82,4 +82,17 @@ $(function() {
 
     return false;
   });
+
+  $('.root-menu').click(function(){
+    var subMenus = $(this).parent().next('ul'),
+      arrow = $(this).find('.icon-root-menu'),
+      isShowed = $(this).parent().next('ul:visible');
+    if (isShowed.length == 1) {
+      subMenus.hide();
+      arrow.removeClass('icon_expand_arrow').addClass('icon_collapse_arrow');
+    } else {
+      subMenus.show();
+      arrow.removeClass('icon_collapse_arrow').addClass('icon_expand_arrow');
+    };
+  });
 });

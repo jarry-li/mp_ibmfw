@@ -54,8 +54,7 @@ module DyneMp
 
     # Enable the asset pipeline
     config.assets.enabled = true
-
-    config.permit_all_parameters = false
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
     config.generators do |g|
       g.test_framework :rspec

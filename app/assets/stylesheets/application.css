@@ -9,9 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  * require jquery.ui.all
- * require jquery.ui.tabs
- * require jquery.ui.slider
- * require jquery.ui.datepicker
+ *= require jquery.ui.tabs
+ *= require jquery.ui.slider
+ *= require jquery.ui.datepicker
  *= require_tree .
  *= require_self
  */

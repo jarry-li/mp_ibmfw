@@ -1,25 +1,91 @@
-<h1>Listing websites</h1>
+<% content_for :sidebar_menu do %>
+  <li><%= link_to '我的微官网', websites_path, class: controller_name == 'websites' ? "active" : '' %></li>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<%= render 'sidebar' %>
 
-  <tbody>
-    <% @websites.each do |website| %>
-      <tr>
-        <td><%= link_to 'Show', website %></td>
-        <td><%= link_to 'Edit', edit_website_path(website) %></td>
-        <td><%= link_to 'Destroy', website, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Website', new_website_path %>
+<div class="right-col fl">
+  <div class="body-cotent-box">
+    <span class="box-bar top-bar"></span>
+    <div class="content clearfix">
+      <h2>新建活动</h2>
+      <%= image_tag 'pic_my_profile.jpg', class: 'fl' %>
+      <div class="content-profile fl">
+        <div class="row clearfix">
+          <label class="landscape-label">活动名称<span class="arsk">*</span><span class="label-tip">（不能超过64个字）</span></label>
+          <div class="form-field">
+            <div class="input-box input-470 sprits inline-block">
+              <input type="text" class="txt-input" value="上海炅然文化传播有限公司" />
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <label class="landscape-label">公共账号<span class="arsk">*</span></label>
+          <div class="form-field">
+            <select class="select-field">
+              <option>请选择公共账号</option>
+            </select>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <label class="landscape-label">官网模板</label>
+          <div class="form-field">
+            <select class="select-field">
+              <option>风格四</option>
+            </select>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <label class="landscape-label">回复关键词<span class="arsk">*</span><span class="label-tip">（活动的关键词不能重复，可以多个关键词，使用英文“，”隔开）</span></label>
+          <div class="form-field">
+            <div class="input-box input-220 sprits inline-block">
+              <input type="text" class="txt-input" value="6" />
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <label class="landscape-label">图文消息标题<span class="arsk">*</span><span class="label-tip">（发送关键词后返回的图文消息标题）</span></label>
+          <div class="form-field">
+            <div class="input-box input-220 sprits inline-block">
+              <input type="text" class="txt-input" value="欢迎进入上海炅然的微官网" />
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <label class="landscape-label">图文消息封面<span class="arsk">*</span><span class="label-tip">（发送关键词后返回的图文消息标题）</span></label>
+          <div class="profile-cover">
+            <span class="box-bar top-bar"></span>
+            <div class="inner-box clearfix">
+              <a href="#" class="fl"><%= image_tag 'button_select_file.png' %></a>
+              <span class="label-tip fr">大图片建议尺寸：640像素*500像素</span>
+            </div>
+            <div class="inner-box cover-preview clearfix">
+              <%= image_tag 'pic_message_cover.jpg', class: 'inline-block' %>
+              <a href="#" class="inline-block delete-cover old-blue-link">删除</a>
+            </div>
+            <span class="box-bar btm-bar"></span>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <label class="landscape-label">官网首页消息封面</label>
+          <div class="profile-cover">
+            <span class="box-bar top-bar"></span>
+            <div class="inner-box clearfix">
+              <a href="#" class="fl"><%= image_tag 'button_select_file.png' %></a>
+              <span class="label-tip fr">大图片建议尺寸：640像素*500像素</span>
+            </div>
+            <div class="inner-box cover-preview clearfix">
+              <%= image_tag 'pic_message_cover.jpg', class: 'inline-block' %>
+              <a href="#" class="inline-block delete-cover old-blue-link">删除</a>
+            </div>
+            <span class="box-bar btm-bar"></span>
+          </div>
+        </div>
+        <div class="content-profile-action">
+          <%= image_submit_tag("button_save_apply.png") %>&nbsp;<a href="/website_menus"><%= image_tag("button_setting.png") %></a>&nbsp;<a href="#"><%= image_tag("button_suspend.png") %></a>
+        </div>
+      </div>
+    </div>
+    <span class="box-bar btm-bar"></span>
+  </div>
+</div>
