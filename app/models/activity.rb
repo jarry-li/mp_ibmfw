@@ -35,7 +35,6 @@ class Activity < ActiveRecord::Base
   has_many :vip_cards
 
   after_create :create_default_properties!
-  after_update :setted!
 
   accepts_nested_attributes_for :activity_property
   accepts_nested_attributes_for :activity_notices
